@@ -1,303 +1,154 @@
-;(function () {
-	
-	'use strict';
+/*
 
-	var isMobile = {
-		Android: function() {
-			return navigator.userAgent.match(/Android/i);
-		},
-			BlackBerry: function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-		},
-			iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-		},
-			Opera: function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-		},
-			Windows: function() {
-			return navigator.userAgent.match(/IEMobile/i);
-		},
-			any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-		}
-	};
+    Template Name: Adalot - Responsive Law Html5 Template;
+    Template URI: http://hastech.company/
+    Description: This is Bootstrap4 html5 template
+    Author: HasTech
+    Author URI: http://hastech.company/
+    Version: 1.0
 
-	var mobileMenuOutsideClick = function() {
+*/
 
-		$(document).click(function (e) {
-	    var container = $("#ftco-offcanvas, .js-ftco-nav-toggle");
-	    if (!container.is(e.target) && container.has(e.target).length === 0) {
-
-	    	if ( $('body').hasClass('offcanvas') ) {
-
-    			$('body').removeClass('offcanvas');
-    			$('.js-ftco-nav-toggle').removeClass('active');
-				
-	    	}
-	    
-	    	
-	    }
-		});
-
-	};
-
-
-	var offcanvasMenu = function() {
-
-		$('#page').prepend('<div id="ftco-offcanvas" />');
-		$('#page').prepend('<a href="#" class="js-ftco-nav-toggle ftco-nav-toggle ftco-nav-white"><i></i></a>');
-		var clone1 = $('.menu-1 > ul').clone();
-		$('#ftco-offcanvas').append(clone1);
-		var clone2 = $('.menu-2 > ul').clone();
-		$('#ftco-offcanvas').append(clone2);
-
-		$('#ftco-offcanvas .has-dropdown').addClass('offcanvas-has-dropdown');
-		$('#ftco-offcanvas')
-			.find('li')
-			.removeClass('has-dropdown');
-
-		// Hover dropdown menu on mobile
-		$('.offcanvas-has-dropdown').mouseenter(function(){
-			var $this = $(this);
-
-			$this
-				.addClass('active')
-				.find('ul')
-				.slideDown(500, 'easeOutExpo');				
-		}).mouseleave(function(){
-
-			var $this = $(this);
-			$this
-				.removeClass('active')
-				.find('ul')
-				.slideUp(500, 'easeOutExpo');				
-		});
-
-
-		$(window).resize(function(){
-
-			if ( $('body').hasClass('offcanvas') ) {
-
-    			$('body').removeClass('offcanvas');
-    			$('.js-ftco-nav-toggle').removeClass('active');
-				
-	    	}
-		});
-	};
-
-
-	var burgerMenu = function() {
-
-		$('body').on('click', '.js-ftco-nav-toggle', function(event){
-			var $this = $(this);
-
-
-			if ( $('body').hasClass('overflow offcanvas') ) {
-				$('body').removeClass('overflow offcanvas');
-			} else {
-				$('body').addClass('overflow offcanvas');
-			}
-			$this.toggleClass('active');
-			event.preventDefault();
-
-		});
-	};
-
-	var fullHeight = function() {
-
-		if ( !isMobile.any() ) {
-			$('.js-fullheight').css('height', $(window).height());
-			$(window).resize(function(){
-				$('.js-fullheight').css('height', $(window).height());
-			});
-		}
-
-	};
-
-
-
-	var contentWayPoint = function() {
-		var i = 0;
-		$('.animate-box').waypoint( function( direction ) {
-
-			if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
-				
-				i++;
-
-				$(this.element).addClass('item-animate');
-				setTimeout(function(){
-
-					$('body .animate-box.item-animate').each(function(k){
-						var el = $(this);
-						setTimeout( function () {
-							var effect = el.data('animate-effect');
-							if ( effect === 'fadeIn') {
-								el.addClass('fadeIn animated-fast');
-							} else if ( effect === 'fadeInLeft') {
-								el.addClass('fadeInLeft animated-fast');
-							} else if ( effect === 'fadeInRight') {
-								el.addClass('fadeInRight animated-fast');
-							} else {
-								el.addClass('fadeInUp animated-fast');
-							}
-
-							el.removeClass('item-animate');
-						},  k * 200, 'easeInOutExpo' );
-					});
-					
-				}, 100);
-				
-			}
-
-		} , { offset: '85%' } );
-	};
-
-
-	var dropdown = function() {
-
-		$('.has-dropdown').mouseenter(function(){
-
-			var $this = $(this);
-			$this
-				.find('.dropdown')
-				.css('display', 'block')
-				.addClass('animated-fast fadeInUpMenu');
-
-		}).mouseleave(function(){
-			var $this = $(this);
-
-			$this
-				.find('.dropdown')
-				.css('display', 'none')
-				.removeClass('animated-fast fadeInUpMenu');
-		});
-
-	};
-
-
-	var goToTop = function() {
-
-		$('.js-gotop').on('click', function(event){
-			
-			event.preventDefault();
-
-			$('html, body').animate({
-				scrollTop: $('html').offset().top
-			}, 500, 'easeInOutExpo');
-			
-			return false;
-		});
-
-		$(window).scroll(function(){
-
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$('.js-top').addClass('active');
-			} else {
-				$('.js-top').removeClass('active');
-			}
-
-		});
-	
-	};
-
-
-	// Loading page
-	var loaderPage = function() {
-		$(".ftco-loader").fadeOut("slow");
-	};
-
-	var counter = function() {
-		$('.js-counter').countTo({
-			 formatter: function (value, options) {
-	      return value.toFixed(options.decimals);
-	    },
-		});
-	};
-
-	var counterWayPoint = function() {
-		if ($('#ftco-counter').length > 0 ) {
-			$('#ftco-counter').waypoint( function( direction ) {
-										
-				if( direction === 'down' && !$(this.element).hasClass('animated') ) {
-					setTimeout( counter , 400);					
-					$(this.element).addClass('animated');
-				}
-			} , { offset: '90%' } );
-		}
-	};
-
-	var parallax = function() {
-
-		if ( !isMobile.any() ) {
-			$(window).stellar({
-				horizontalScrolling: false,
-				hideDistantElements: false, 
-				responsive: true
-
-			});
-		}
-	};
-
-	var testimonialCarousel = function(){
-		
-		var owl = $('.owl-carousel-fullwidth');
-		owl.owlCarousel({
-			items: 1,
-			loop: true,
-			margin: 0,
-			nav: false,
-			dots: true,
-			smartSpeed: 800,
-			autoHeight: true
-		});
-	};
-
-	var sliderMain = function() {
-		
-	  	$('#ftco-hero .flexslider').flexslider({
-			animation: "fade",
-			slideshowSpeed: 5000,
-			directionNav: true,
-			start: function(){
-				setTimeout(function(){
-					$('.slider-text').removeClass('animated fadeInUp');
-					$('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
-				}, 500);
-			},
-			before: function(){
-				setTimeout(function(){
-					$('.slider-text').removeClass('animated fadeInUp');
-					$('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
-				}, 500);
-			}
-
-	  	});
-
-	  	$('#ftco-hero .flexslider .slides > li').css('height', $(window).height());	
-	  	$(window).resize(function(){
-	  		$('#ftco-hero .flexslider .slides > li').css('height', $(window).height());	
-	  	});
-
-	};
-
-	
-	$(function(){
-		mobileMenuOutsideClick();
-		offcanvasMenu();
-		burgerMenu();
-		contentWayPoint();
-		sliderMain();
-		dropdown();
-		goToTop();
-		loaderPage();
-		counterWayPoint();
-		counter();
-		parallax();
-		testimonialCarousel();
-		fullHeight();
-	});
-
-
-}());
+(function ($) {
+	"use Strict";
+/*---------------------------------
+     Mean Menu Active
+-----------------------------------*/
+$('.header-menu-area nav').meanmenu({
+    meanMenuContainer: '.mobile-menu',
+    meanScreenWidth: "991"
+});
+/*---------------------------------
+     Sticky Menu Active
+-----------------------------------*/
+$(window).on('scroll',function() {
+if ($(this).scrollTop() >50){  
+    $('.header-sticky').addClass("is-sticky");
+  }
+  else{
+    $('.header-sticky').removeClass("is-sticky");
+  }
+});
+/*-------------------
+  counterUp active
+--------------------*/ 
+$('.counter').counterUp({
+    delay: 10,
+    time: 1000
+});
+/*---------------------------------
+     Team Slider Active 
+----------------------------------*/
+ $('.team-slider').owlCarousel({
+        smartSpeed: 1000,
+        items: 2,
+        nav: false,
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        responsive: {
+            0: {
+                items: 1
+            },
+            992: {
+                items: 2
+            },
+        }
+    })
+/*-----------------------------
+    Brand Active
+----------------------------------*/
+ $('.brand-active').owlCarousel({
+        smartSpeed: 1000,
+        nav: false,
+        navText: ['<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>'],
+        responsive: {
+            0: {
+                items: 2
+            },
+            450: {
+                items: 2
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
+            },
+            1200: {
+                items: 5
+            }
+        }
+})
+/*------------------------------
+   Blog Slider Active
+----------------------------------*/
+ $('.blog-slider-active').owlCarousel({
+        smartSpeed: 1000,
+        nav: true,
+        loop: true,
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+        responsive: {
+            0: {
+                items: 1
+            },
+            450: {
+                items: 1
+            },
+            600: {
+                items: 1
+            },
+            1000: {
+                items: 1
+            },
+            1200: {
+                items: 1
+            }
+        }
+})  
+/*----------------------------------
+    ScrollUp Active
+-----------------------------------*/
+$.scrollUp({
+    scrollText: '<i class="fa fa-angle-double-up"></i>',
+    easingType: 'linear',
+    scrollSpeed: 900,
+    animation: 'fade'
+});
+/*----------------------------------
+	 Instafeed Active 
+------------------------------------*/
+if($('#Instafeed').length) {
+    var feed = new Instafeed({
+        get: 'user',
+        userId: 7093388560,
+        accessToken: '7093388560.1677ed0.8e1a27120d5a4e979b1ff122d649a273',
+        target: 'Instafeed',
+        resolution: 'thumbnail',
+        limit: 6,
+        template: '<li><a href="{{link}}" target="_new"><img src="{{image}}" /></a></li>',
+    });
+    feed.run(); 
+}
+/*----------------------------------
+	 Calendar Active 
+------------------------------------*/
+$('#my-calendar').zabuto_calendar({
+    cell_border: false,
+    today: true,
+    show_days: true,
+    weekstartson: 0,
+    nav_icon: {
+        prev: '<i class="fa fa-angle-left"></i>',
+        next: '<i class="fa fa-angle-right"></i>'
+    }
+});
+/* -------------------------------
+	 Venobox Active
+* ------------------------------*/  
+$('.venobox').venobox({
+    border: '10px',
+    titleattr: 'data-title',
+    numeratio: true,
+    infinigall: true
+});     
+    
+})(jQuery);
